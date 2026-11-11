@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+IMG_1266.jpg
+/tmp/
+*.log
+node_modules/
