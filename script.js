@@ -52,22 +52,32 @@
     reveals.forEach(el => el.classList.add('is-in'));
   }
 
-  // Cards: expand/collapse
+  // Cards: expand/collapse (accordion — abrir um fecha os outros)
+  const allCards = document.querySelectorAll('.card');
+  const closeCard = (card) => {
+    card.classList.remove('is-open');
+    const full = card.querySelector('.card__full');
+    const excerpt = card.querySelector('.card__excerpt');
+    const btn = card.querySelector('.card__toggle');
+    if (full) full.hidden = true;
+    if (excerpt) excerpt.style.display = '';
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  };
+  const openCard = (card) => {
+    card.classList.add('is-open');
+    const full = card.querySelector('.card__full');
+    const excerpt = card.querySelector('.card__excerpt');
+    const btn = card.querySelector('.card__toggle');
+    if (full) full.hidden = false;
+    if (excerpt) excerpt.style.display = 'none';
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+  };
   document.querySelectorAll('.card__toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.card');
-      const full = card.querySelector('.card__full');
-      const excerpt = card.querySelector('.card__excerpt');
-      const isOpen = card.classList.toggle('is-open');
-      if (isOpen) {
-        full.hidden = false;
-        excerpt.style.display = 'none';
-        btn.setAttribute('aria-expanded', 'true');
-      } else {
-        full.hidden = true;
-        excerpt.style.display = '';
-        btn.setAttribute('aria-expanded', 'false');
-      }
+      const wasOpen = card.classList.contains('is-open');
+      allCards.forEach(closeCard);
+      if (!wasOpen) openCard(card);
     });
   });
 
