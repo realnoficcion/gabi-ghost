@@ -53,13 +53,15 @@
   }
 
   // Cards: expand/collapse (accordion — abrir um fecha os outros)
+  // Texto completo mora em <template> para não entrar no DOM lido pelo
+  // modo leitor do Safari. Só é injetado no DOM quando o usuário abre.
   const allCards = document.querySelectorAll('.card');
   const closeCard = (card) => {
     card.classList.remove('is-open');
     const full = card.querySelector('.card__full');
     const excerpt = card.querySelector('.card__excerpt');
     const btn = card.querySelector('.card__toggle');
-    if (full) full.hidden = true;
+    if (full) { full.hidden = true; full.innerHTML = ''; }
     if (excerpt) excerpt.style.display = '';
     if (btn) btn.setAttribute('aria-expanded', 'false');
   };
@@ -68,7 +70,12 @@
     const full = card.querySelector('.card__full');
     const excerpt = card.querySelector('.card__excerpt');
     const btn = card.querySelector('.card__toggle');
-    if (full) full.hidden = false;
+    const tpl = card.querySelector('template.card__source');
+    if (full && tpl) {
+      full.innerHTML = '';
+      full.appendChild(tpl.content.cloneNode(true));
+      full.hidden = false;
+    }
     if (excerpt) excerpt.style.display = 'none';
     if (btn) btn.setAttribute('aria-expanded', 'true');
   };
