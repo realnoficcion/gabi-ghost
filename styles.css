@@ -672,95 +672,86 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 960px) { .plans { grid-template-columns: 1fr; gap: 16px; } }
 
 .plan {
-  background: var(--paper);
-  border: 1px solid var(--line);
+  background-color: var(--ink);
+  border: 1px solid var(--ink);
   border-radius: var(--radius);
   padding: 36px 32px 32px;
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  color: var(--ink);
+  color: var(--accent-soft);
   text-decoration: none;
   cursor: pointer;
-  transition: transform .45s var(--ease),
-              box-shadow .45s var(--ease),
-              border-color .45s var(--ease),
-              background-color .45s var(--ease),
-              color .45s var(--ease);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
 }
 .plan::before {
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(500px 300px at 100% 0%, rgba(184,151,104,.18), transparent 60%);
-  opacity: 0;
-  transition: opacity .45s var(--ease);
   pointer-events: none;
+  opacity: 1;
+}
+.plan::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(400px 260px at 100% 0%, rgba(184,151,104,.14), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease);
 }
 .plan:hover,
 .plan:focus-visible {
-  background-color: var(--ink);
-  border-color: var(--ink);
-  color: var(--accent-soft);
   transform: translateY(-4px);
-  box-shadow: 0 30px 80px -30px rgba(15,24,48,.45);
+  box-shadow: 0 30px 80px -30px rgba(15,24,48,.5);
   outline: none;
 }
-.plan:hover::before,
-.plan:focus-visible::before { opacity: 1; }
+.plan:hover::after,
+.plan:focus-visible::after { opacity: 1; }
 
 .plan__name {
   font-family: var(--serif);
   font-weight: 400;
+  font-style: italic;
   font-size: 32px;
   letter-spacing: -0.012em;
   display: block;
   margin-bottom: 10px;
-  transition: color .45s var(--ease), font-style .45s var(--ease);
+  color: var(--accent-soft);
+  position: relative;
 }
-.plan:hover .plan__name,
-.plan:focus-visible .plan__name { color: var(--accent-soft); font-style: italic; }
 
 .plan__desc {
   font-family: var(--serif);
   font-size: 16px;
   font-style: italic;
-  color: var(--ink-mute);
+  color: rgba(231,217,189,.72);
   margin: 0 0 28px;
   line-height: 1.45;
   min-height: 46px;
-  transition: color .45s var(--ease);
+  position: relative;
 }
-.plan:hover .plan__desc,
-.plan:focus-visible .plan__desc { color: rgba(231,217,189,.72); }
 
 .plan ul {
   list-style: none;
   padding: 0;
   margin: 0 0 32px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(231,217,189,.14);
   flex: 1;
-  transition: border-top-color .45s var(--ease);
+  position: relative;
 }
-.plan:hover ul,
-.plan:focus-visible ul { border-top-color: rgba(231,217,189,.14); }
 
 .plan li {
   padding: 16px 0;
   font-family: var(--serif);
   font-size: 17px;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink-soft);
+  border-bottom: 1px solid rgba(231,217,189,.12);
+  color: rgba(231,217,189,.9);
   line-height: 1.45;
   position: relative;
   padding-left: 24px;
-  transition: color .45s var(--ease), border-bottom-color .45s var(--ease);
-}
-.plan:hover li,
-.plan:focus-visible li {
-  color: rgba(231,217,189,.9);
-  border-bottom-color: rgba(231,217,189,.12);
 }
 .plan li::before {
   content: "";
@@ -772,14 +763,11 @@ a { color: inherit; text-decoration: none; }
 .plan li span {
   display: block;
   font-size: 13px;
-  color: var(--ink-mute);
+  color: rgba(231,217,189,.55);
   margin-top: 4px;
   font-style: italic;
   font-family: var(--serif);
-  transition: color .45s var(--ease);
 }
-.plan:hover li span,
-.plan:focus-visible li span { color: rgba(231,217,189,.55); }
 
 .plan__cta {
   align-self: flex-start;
@@ -788,11 +776,12 @@ a { color: inherit; text-decoration: none; }
   gap: 10px;
   padding: 13px 24px;
   border-radius: 999px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid rgba(231,217,189,.3);
   font-family: var(--display);
   font-size: 11px;
   letter-spacing: .28em;
   text-transform: uppercase;
+  color: var(--accent-soft);
   transition: border-color .45s var(--ease), background-color .45s var(--ease), color .45s var(--ease);
   position: relative;
   z-index: 1;
